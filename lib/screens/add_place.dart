@@ -49,6 +49,9 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                 color: Theme.of(context).colorScheme.onBackground,
               ),
             ),
+            const SizedBox(
+              height: 16,
+            ),
             const ImageInput(),
             const SizedBox(
               height: 16,
