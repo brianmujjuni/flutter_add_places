@@ -23,6 +23,18 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
+    Widget content = TextButton.icon(
+      onPressed: _takePicture,
+      icon: const Icon(Icons.camera),
+      label: const Text('Take Picture'),
+    );
+
+    if (_selectedImage != null) {
+      content = Image.file(
+        _selectedImage!,
+        fit: BoxFit.cover,
+      );
+    }
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
@@ -33,11 +45,7 @@ class _ImageInputState extends State<ImageInput> {
       height: 250,
       width: double.infinity,
       alignment: Alignment.center,
-      child: TextButton.icon(
-        onPressed: _takePicture,
-        icon: const Icon(Icons.camera),
-        label: const Text('Take Picture'),
-      ),
+      child: content,
     );
   }
 }
