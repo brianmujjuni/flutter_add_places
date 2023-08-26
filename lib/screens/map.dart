@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:favorite_places/models/place.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({
@@ -9,9 +10,11 @@ class MapScreen extends StatefulWidget {
       longitude: -122.084,
       address: '',
     ),
+    this.isSelecting = true,
   });
 
   final PlaceLocation location;
+  final bool isSelecting;
   @override
   State<MapScreen> createState() => _MapScreenState();
 }
@@ -19,6 +22,36 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title:
+            Text(widget.isSelecting ? 'Pick your location' : 'Your Location'),
+        actions: [
+          if (widget.isSelecting)
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.save),
+            )
+        ],
+      ),
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: LatLng(
+            widget.location.latitude,
+            widget.location.longitude,
+          ),
+          zoom: 16,
+        ),
+        markers: {
+          Marker(
+            markerId: const MarkerId('m1'),
+            position: LatLng(
+              widget.location.latitude,
+              widget.location.longitude,
+            ),
+          )
+        },
+      ),
+    );
   }
 }
